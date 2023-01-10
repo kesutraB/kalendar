@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <style>
+    /* CSS for styling the calendar */
+    body {
+      font-family: Arial;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    th,
+    td {
+      border: 1px solid black;
+      padding: 8px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    .bold {
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Calendar</h1>
+  <form>
+    <label for="date">Select a Date:</label>
+    <input type="date" id="date">
+    <button type="button" onclick="generateCalendar()">Generate Calendar</button>
+  </form>
+  <br>
+  <table id="calendar"></table>
+  <script>
+    function generateCalendar() {
+      // Get the selected date from the form
+      var dateInput = document.getElementById("date");
+      if (dateInput.value === "") {
+        alert("Please select a date to generate calendar!");
+        return;
+      }
+
+      var date = new Date(dateInput.value);
+      var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+      var numDays = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+      // Create the table elements for the calendar
+      var table = document.getElementById("calendar");
+      table.innerHTML = "";
+      var row = table.insertRow();
+      var weekdays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+      var selected = new Date(dateInput.value).getDate();
+      // Insert cells for the weekdays
+      for (var i = 0; i < 7; i++) {
+        var cell = row.insertCell();
+        cell.innerHTML = weekdays[i];
+      }
+
+      var day = 1;
+      for (var i = 0; i < 6; i++) {
+        row = table.insertRow();
+        for (var j = 0; j < 7; j++) {
+          var cell = row.insertCell();
+          if (i === 0) {
+            if (j < firstDay.getUTCDay()) {
+              cell.innerHTML = "";
+              continue;
+            }
+          }
+          if (day > numDays) {
+            cell.innerHTML = "";
+          } else {
+            if (day === selected) {
+              cell.classList.add("bold");
+            }
+            cell.innerHTML = day;
+            day++;
+          }
+        }
+      }
+    }
+  </script>
+
+</body>
+
+</html>

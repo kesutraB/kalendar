@@ -4,17 +4,19 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
   <script type="text/javascript" src="kalendar.js"></script>
   <title>kalendář</title>
 </head>
 <body>
   <h1>Kalendář</h1>
-  <form method="get">
-    <input type="date" name="datum" id="datum">
-    <input type="button" name="generovat" id="generovat" value="Generovat kalendář">
+  <form>
+    <label for="date">Select a Date:</label>
+    <input type="date" id="date">
+    <button type="button" id="generateCalendar">Generovat kalendář</button>
   </form>
-
-  <div id="kalendar"></div>
+  <br>
+  <table id="calendar"></table>
 </body>
 </html>
