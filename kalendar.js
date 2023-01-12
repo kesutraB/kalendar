@@ -1,53 +1,50 @@
 $(document).ready(function() {
-      $("#generateCalendar").click(function() {
-        // Get the selected date from the form
-        var dateInput = $("#date").val();
-        if (dateInput === "") {
-          alert("Please select a date to generate calendar!");
+      $("#generovatKalendar").click(function() {
+        var zadaneDatum = $("#date").val();
+        if (zadaneDatum === "") {
+          alert("Vyber datum aby se mohl vygenerovat kalendář.");
           return;
         }
-        var date = new Date(dateInput);
-        var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
-        var numDays = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
-        // Create the table elements for the calendar
-        $("#calendar").html("");
-        var weekdays = ["Pondělí", "Úterý", "Středa", "Čtvrtek", "Pátek", "Sobota", "Neděle"];
-        var selected = new Date(dateInput).getDate();
-        var table = $("<table>");
-        var row = $("<tr>");
-        // Insert cells for the weekdays
+        var datum = new Date(zadaneDatum);
+        var firstDay = new Date(datum.getFullYear(), datum.getMonth(), 1);
+        var dnyMesice = new Date(datum.getFullYear(), datum.getMonth() + 1, 0).getDate();
+        $("#kalendar").html("");
+        var dnyTydnu = ["Pondělí", "Úterý", "Středa", "Čtvrtek", "Pátek", "Sobota", "Neděle"];
+        var vybraneDatum = new Date(zadaneDatum).getDate();
+        var tabulka = $("<table>");
+        var radek = $("<tr>");
         for (var i = 0; i < 7; i++) {
-          var cell = $("<th>").html(weekdays[i]);
-          row.append(cell);
+          var cell = $("<th>").html(dnyTydnu[i]);
+          radek.append(cell);
         }
-        table.append(row);
-        var day = 1;
+        tabulka.append(radek);
+        var den = 1;
         for (var i = 0; i < 6; i++) {
-          row = $("<tr>");
+          radek = $("<tr>");
           for (var j = 0; j < 7; j++) {
             var cell = $("<td>");
             if (i === 0) {
               if (j < firstDay.getUTCDay()) {
                 cell.html("");
-                row.append(cell);
+                radek.append(cell);
                 continue;
               }
             }
-            if (day > numDays) {
+            if (den > dnyMesice) {
               cell.html("");
-              row.append(cell);
+              radek.append(cell);
               continue;
             } else {
-              if (day === selected) {
+              if (den === vybraneDatum) {
                 cell.addClass("bold");
               }
-              cell.html(day);
-              day++;
-              row.append(cell);
+              cell.html(den);
+              den++;
+              radek.append(cell);
             }
           }
-          table.append(row);
+          tabulka.append(radek);
         }
-        $("#calendar").append(table);
+        $("#kalendar").append(tabulka);
       });
     });
