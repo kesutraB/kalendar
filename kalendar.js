@@ -6,7 +6,7 @@ $(document).ready(function() {
           return;
         }
         var datum = new Date(zadaneDatum);
-        var firstDay = new Date(datum.getFullYear(), datum.getMonth(), 1);
+        var prvniDen = new Date(datum.getFullYear(), datum.getMonth(), 1);
         var dnyMesice = new Date(datum.getFullYear(), datum.getMonth() + 1, 0).getDate();
         $("#kalendar").html("");
         var dnyTydnu = ["Pondělí", "Úterý", "Středa", "Čtvrtek", "Pátek", "Sobota", "Neděle"];
@@ -14,33 +14,33 @@ $(document).ready(function() {
         var tabulka = $("<table>");
         var radek = $("<tr>");
         for (var i = 0; i < 7; i++) {
-          var cell = $("<th>").html(dnyTydnu[i]);
-          radek.append(cell);
+          var bunka = $("<th>").html(dnyTydnu[i]);
+          radek.append(bunka);
         }
         tabulka.append(radek);
         var den = 1;
         for (var i = 0; i < 6; i++) {
           radek = $("<tr>");
           for (var j = 0; j < 7; j++) {
-            var cell = $("<td>");
+            var bunka = $("<td>");
             if (i === 0) {
-              if (j < firstDay.getUTCDay()) {
-                cell.html("");
-                radek.append(cell);
+              if (j < prvniDen.getUTCDay()) {
+                bunka.html("");
+                radek.append(bunka);
                 continue;
               }
             }
             if (den > dnyMesice) {
-              cell.html("");
-              radek.append(cell);
+              bunka.html("");
+              radek.append(bunka);
               continue;
             } else {
               if (den === vybraneDatum) {
-                cell.addClass("bold");
+                bunka.addClass("bold");
               }
-              cell.html(den);
+              bunka.html(den);
               den++;
-              radek.append(cell);
+              radek.append(bunka);
             }
           }
           tabulka.append(radek);
